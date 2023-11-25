@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/beef"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/transparent"
+        android:text="beef"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nameraka"
+        android:textSize="30dp"/>
+
+    <Button
+        android:id="@+id/fish"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="13dp"
+        android:background="@android:color/transparent"
+        android:text="fish"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nameraka"
+        android:textSize="30dp"/>
+
+    <Button
+        android:id="@+id/pig"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="200dp"
+        android:background="@android:color/transparent"
+        android:text="pig"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nameraka"
+        android:textSize="30dp"/>
+
+    <Button
+        android:id="@+id/sweets"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="200dp"
+        android:background="@android:color/transparent"
+        android:text="sweets"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nameraka"
+        android:textSize="19dp"/>
+
+    <Button
+        android:id="@+id/chicken"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="350dp"
+        android:background="@android:color/transparent"
+        android:text="chicken"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nameraka"
+        android:textSize="30dp"/>
+
+    <Button
+        android:id="@+id/others"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="350dp"
+        android:background="@android:color/transparent"
+        android:text="others"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nameraka"
+        android:textSize="19dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="125dp"
+        android:fontFamily="@font/nameraka"
+        android:gravity="center"
+        android:text="mother's treasure"
+        android:textColor="@color/black"
+        android:textSize="50dp" />
+
+</RelativeLayout>
