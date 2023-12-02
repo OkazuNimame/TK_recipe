@@ -2,7 +2,7 @@ package com.example.tk_recipe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,50 +14,73 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Memo_beef extends AppCompatActivity {
-    EditText title;
-    Button save, back;
+import static com.example.tk_recipe.database.COLUMN_NAME_SUBTITLE;
+import static com.example.tk_recipe.database.COLUMN_NAME_TITLE;
+import static com.example.tk_recipe.database.TABLE_NAME;
 
-    private ListView memoListView;
-    private database helper;
+public class Memo_beef extends AppCompatActivity {
+
+    EditText title, recipe_content;
+    Button save, back;
+    private database dbHelper;
+    private List<String> dataList;
     private ArrayAdapter<String> adapter;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_beef);
         title = findViewById(R.id.title);
         save = findViewById(R.id.recipe_save);
-        memoListView = findViewById(R.id.memoList);
-        helper = new database(getApplicationContext());
+        recipe_content = findViewById(R.id.recipe_content);
+        dbHelper = new database(getApplicationContext());
+        dataList = new ArrayList<>();
 
+        // ボタンクリック時の処理
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SQLiteDatabase db = helper.getWritableDatabase();  // Use getWritableDatabase() instead of getReadableDatabase()
                 String title_save = title.getText().toString();
-
+                String content_save = recipe_content.getText().toString();
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
-                values.put("title", title_save);
-                db.insert("Beefdb", null, values);
+                values.put(COLUMN_NAME_TITLE, title_save);
+                values.put(COLUMN_NAME_SUBTITLE, content_save);
+                db.insert(TABLE_NAME, null, values);
 
-                // Update the ListView after adding a new memo
-                List<String> memoList = helper.getAllMemos();
-                if (memoListView != null) {
-                    adapter = new ArrayAdapter<>(Memo_beef.this, android.R.layout.simple_list_item_1, memoList);
-                    memoListView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                }
+                Intent intent = new Intent(Memo_beef.this,beef_recipe.class);
+                intent.putStringArrayListExtra("data",(ArrayList<String>) dataList);
+                startActivityForResult(intent, 1);
+                // 入力フィールドをクリア
+                title.setText("");
+                recipe_content.setText("");
+                setResult(Activity.RESULT_OK, (Intent) dataList);
+                finish(); // 重要: Memo_beef アクティビティを終了する
 
-                title.setText("");  // Clear the EditText after saving
 
-                // Assuming you want to start a new activity (beef_recipe) after saving
-                Intent intent = new Intent(Memo_beef.this, beef_recipe.class);
-                startActivity(intent);
+
             }
         });
     }
+    public List<String> fetchDataFromDatabase() {
+        List<String> dataList = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, new String[]{COLUMN_NAME_TITLE, COLUMN_NAME_SUBTITLE}, null, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            String title = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_TITLE));
+            String subtitle = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_SUBTITLE));
+            dataList.add(title + ": " + subtitle);
+        }
+
+        cursor.close();
+        return dataList;
+    }
 }
+
+
+
+
