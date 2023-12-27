@@ -38,7 +38,7 @@
             android:layout_below="@id/memoList"
             android:layout_gravity="right"
             android:layout_marginTop="500dp"
-            android:text="追加" />
+            android:text="追 加" />
 
 
     </FrameLayout>
