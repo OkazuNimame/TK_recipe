@@ -1,5 +1,7 @@
 package com.example.tk_recipe;
 
+import static android.graphics.Color.*;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -9,14 +11,20 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,7 +57,6 @@ public class beef_recipe extends AppCompatActivity {
         // ListView の設定
         listView = findViewById(R.id.memoList);
         memoButton = findViewById(R.id.memo);
-
         // ボタンのクリックリスナー
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -59,34 +66,85 @@ public class beef_recipe extends AppCompatActivity {
             }
         };
         memoButton.setOnClickListener(onClickListener);
-
         // データベースからデータを取得してListViewに表示
         fetchDataAndDisplay();
 
+        database database = new database(beef_recipe.this);
+        SQLiteDatabase db = database.getReadableDatabase();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
+
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                database database = new database(beef_recipe.this);
-                SQLiteDatabase db = database.getWritableDatabase();
 
 
                 Cursor cursor = db.query(TABLE_NAME, new String[]{COLUMN_NAME_TITLE, COLUMN_NAME_SUBTITLE}, null, null, null, null, null);
+                if (cursor != null) {
+                    if (cursor.moveToPosition(position)) {
 
-                if (cursor != null && cursor.moveToFirst()) {
-                    String data = cursor.getString(cursor.getColumnIndexOrThrow("title"));
-                    String data2 = cursor.getString(cursor.getColumnIndexOrThrow("recipe"));
+                        String data = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+                        String data2 = cursor.getString(cursor.getColumnIndexOrThrow("recipe"));
 
-                    String x = ":" + data + ":" + data2;
+                        RelativeLayout relativeLayout = new RelativeLayout(beef_recipe.this);
+                        relativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.MATCH_PARENT
+                        ));
 
-                    Toast.makeText(beef_recipe.this, "一旦表示" + x, Toast.LENGTH_SHORT).show();
+
+                        Drawable background = new ColorDrawable(WHITE);
+                        relativeLayout.setBackground(background);
 
 
+                        EditText titleText = new EditText(beef_recipe.this);
+                        RelativeLayout.LayoutParams titleParam = new RelativeLayout.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT);
+                        titleParam.topMargin = 140;
+                        titleText.setLayoutParams(titleParam);
+                        titleText.setText(data);
+                        titleText.setBackgroundColor(Color.WHITE);  // 背景色を白に設定
+                        titleText.setTextColor(Color.BLACK);
+                        titleText.setHint("Title Here");
+
+
+                        EditText recipeText = new EditText(beef_recipe.this);
+                        RelativeLayout.LayoutParams recipeParams = new RelativeLayout.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.MATCH_PARENT
+                        );
+                        recipeParams.topMargin = 250;
+                        recipeText.setLayoutParams(recipeParams);
+                        recipeText.setText(data2);
+                        recipeText.setBackgroundColor(Color.WHITE);  // 背景色を白に設定
+                        recipeText.setTextColor(Color.BLACK);       // テキストの色を黒に設定
+                        recipeText.setHint("Recipe Here");
+
+
+                        Button saveButton = new Button(beef_recipe.this);
+                        RelativeLayout.LayoutParams savaParams = new RelativeLayout.LayoutParams(
+                                ViewGroup.LayoutParams.WRAP_CONTENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT);
+                        savaParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT); // recipeTextの下に配置する
+                        saveButton.setLayoutParams(savaParams);
+                        saveButton.setText("SAVE");
+                        saveButton.setTextSize(20f);
+
+
+                        relativeLayout.addView(titleText);
+                        relativeLayout.addView(recipeText);
+                        relativeLayout.addView(saveButton);
+
+
+                        setContentView(relativeLayout);
+
+                    }
                     cursor.close();
                 }
                 database.close();
             }
         });
     }
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
