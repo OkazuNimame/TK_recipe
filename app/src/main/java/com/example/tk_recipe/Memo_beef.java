@@ -38,6 +38,7 @@ public class Memo_beef extends AppCompatActivity {
         recipe_content = findViewById(R.id.recipe_content);
         dbHelper = new database(getApplicationContext());
         dataList = new ArrayList<>();
+        back = findViewById(R.id.back);
 
         // ボタンクリック時の処理
         save.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +63,15 @@ public class Memo_beef extends AppCompatActivity {
                 finish(); // 重要: Memo_beef アクティビティを終了する
 
 
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Memo_beef.this, beef_recipe.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

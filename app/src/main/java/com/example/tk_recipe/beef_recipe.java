@@ -46,7 +46,7 @@ public class beef_recipe extends AppCompatActivity {
 
     private EditText titleText, recipeText;
     private Button memoButton;
-    private Button saveButton;
+    private Button saveButton, removeButton;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -67,6 +67,7 @@ public class beef_recipe extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(beef_recipe.this, Memo_beef.class);
                 startActivityForResult(intent, 1);
+                finish();
             }
         };
         memoButton.setOnClickListener(onClickListener);
@@ -105,7 +106,7 @@ public class beef_recipe extends AppCompatActivity {
                         titleText = new EditText(beef_recipe.this);
                         RelativeLayout.LayoutParams titleParam = new RelativeLayout.LayoutParams(
                                 ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT);
+                                -50);
                         titleParam.topMargin = 140;
                         titleText.setLayoutParams(titleParam);
                         titleText.setText(data);
@@ -148,10 +149,23 @@ public class beef_recipe extends AppCompatActivity {
                         backButton.setTextSize(20f);
 
 
+                        removeButton = new Button(beef_recipe.this);
+                        RelativeLayout.LayoutParams removeParmas = new RelativeLayout.LayoutParams(
+                                ViewGroup.LayoutParams.WRAP_CONTENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT
+                        );
+                        // 画面の上部に配置
+                        removeParmas.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                        removeParmas.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                        removeButton.setLayoutParams(removeParmas);
+                        removeButton.setText("delete");
+
+
                         relativeLayout.addView(titleText);
                         relativeLayout.addView(recipeText);
                         relativeLayout.addView(saveButton);
                         relativeLayout.addView(backButton);
+                        relativeLayout.addView(removeButton);
 
 
                         setContentView(relativeLayout);
@@ -169,8 +183,28 @@ public class beef_recipe extends AppCompatActivity {
 
                                 Intent intent = new Intent(beef_recipe.this, beef_recipe.class);
                                 startActivity(intent);
+                                finish();
 
+                            }
+                        });
+                        backButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(beef_recipe.this, beef_recipe.class);
+                                startActivity(intent);
 
+                                finish();
+                            }
+                        });
+
+                        removeButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int newPositon = position + 1;
+                                deleteData(newPositon);
+                                Intent intent = new Intent(beef_recipe.this, beef_recipe.class);
+                                startActivity(intent);
+                                finish();
                             }
                         });
                     }
@@ -178,6 +212,7 @@ public class beef_recipe extends AppCompatActivity {
                 }
 
                 database.close();
+
             }
         });
     }
@@ -217,16 +252,17 @@ public class beef_recipe extends AppCompatActivity {
         return dataList;
     }
 
-    /*private void showOriginalListView() {
-        // 元のデータを保存
-        originalDataList = new ArrayList<>(dataList);
+    public void deleteData(int position) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        // 新しいレイアウトに切り替える
-        setContentView(R.layout.activity_beef_recipe);
+        // データベースから該当のデータを削除
+        db.delete(TABLE_NAME, _ID + "=?", new String[]{String.valueOf(position)});
 
-        // データを再設定
-        fetchDataAndDisplay();
-    }*/
+        db.close();
+
+        // ListViewを更新
+        fetchDataAndDisplay(); // または adapter.notifyDataSetChanged();
+    }
 }
 
 
