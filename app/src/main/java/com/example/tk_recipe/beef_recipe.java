@@ -35,6 +35,7 @@ import java.util.List;
 import static com.example.tk_recipe.database.COLUMN_NAME_SUBTITLE;
 import static com.example.tk_recipe.database.COLUMN_NAME_TITLE;
 import static com.example.tk_recipe.database.TABLE_NAME;
+import static com.example.tk_recipe.database._ID;
 
 public class beef_recipe extends AppCompatActivity {
 
@@ -43,7 +44,9 @@ public class beef_recipe extends AppCompatActivity {
     private ListAdapter adapter;
     private database dbHelper;
 
+    private EditText titleText, recipeText;
     private Button memoButton;
+    private Button saveButton;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -57,6 +60,7 @@ public class beef_recipe extends AppCompatActivity {
         // ListView の設定
         listView = findViewById(R.id.memoList);
         memoButton = findViewById(R.id.memo);
+
         // ボタンのクリックリスナー
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -66,6 +70,8 @@ public class beef_recipe extends AppCompatActivity {
             }
         };
         memoButton.setOnClickListener(onClickListener);
+
+
         // データベースからデータを取得してListViewに表示
         fetchDataAndDisplay();
 
@@ -81,6 +87,7 @@ public class beef_recipe extends AppCompatActivity {
                 if (cursor != null) {
                     if (cursor.moveToPosition(position)) {
 
+
                         String data = cursor.getString(cursor.getColumnIndexOrThrow("title"));
                         String data2 = cursor.getString(cursor.getColumnIndexOrThrow("recipe"));
 
@@ -95,7 +102,7 @@ public class beef_recipe extends AppCompatActivity {
                         relativeLayout.setBackground(background);
 
 
-                        EditText titleText = new EditText(beef_recipe.this);
+                        titleText = new EditText(beef_recipe.this);
                         RelativeLayout.LayoutParams titleParam = new RelativeLayout.LayoutParams(
                                 ViewGroup.LayoutParams.MATCH_PARENT,
                                 ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -107,7 +114,7 @@ public class beef_recipe extends AppCompatActivity {
                         titleText.setHint("Title Here");
 
 
-                        EditText recipeText = new EditText(beef_recipe.this);
+                        recipeText = new EditText(beef_recipe.this);
                         RelativeLayout.LayoutParams recipeParams = new RelativeLayout.LayoutParams(
                                 ViewGroup.LayoutParams.MATCH_PARENT,
                                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -120,7 +127,7 @@ public class beef_recipe extends AppCompatActivity {
                         recipeText.setHint("Recipe Here");
 
 
-                        Button saveButton = new Button(beef_recipe.this);
+                        saveButton = new Button(beef_recipe.this);
                         RelativeLayout.LayoutParams savaParams = new RelativeLayout.LayoutParams(
                                 ViewGroup.LayoutParams.WRAP_CONTENT,
                                 ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -130,21 +137,50 @@ public class beef_recipe extends AppCompatActivity {
                         saveButton.setTextSize(20f);
 
 
+                        Button backButton = new Button(beef_recipe.this);
+                        RelativeLayout.LayoutParams backParmas = new RelativeLayout.LayoutParams(
+                                ViewGroup.LayoutParams.WRAP_CONTENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT
+                        );
+                        backParmas.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                        backButton.setLayoutParams(backParmas);
+                        backButton.setText("BACK");
+                        backButton.setTextSize(20f);
+
+
                         relativeLayout.addView(titleText);
                         relativeLayout.addView(recipeText);
                         relativeLayout.addView(saveButton);
+                        relativeLayout.addView(backButton);
 
 
                         setContentView(relativeLayout);
 
+
+                        saveButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                String newTitleData = titleText.getText().toString();
+                                String newRecipeData = recipeText.getText().toString();
+
+                                int newPosition = position + 1;
+                                database.updateData(newPosition, newTitleData, newRecipeData);
+
+
+                                Intent intent = new Intent(beef_recipe.this, beef_recipe.class);
+                                startActivity(intent);
+
+
+                            }
+                        });
                     }
                     cursor.close();
                 }
+
                 database.close();
             }
         });
     }
-
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -180,6 +216,17 @@ public class beef_recipe extends AppCompatActivity {
         cursor.close();
         return dataList;
     }
+
+    /*private void showOriginalListView() {
+        // 元のデータを保存
+        originalDataList = new ArrayList<>(dataList);
+
+        // 新しいレイアウトに切り替える
+        setContentView(R.layout.activity_beef_recipe);
+
+        // データを再設定
+        fetchDataAndDisplay();
+    }*/
 }
 
 
