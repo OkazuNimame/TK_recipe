@@ -211,6 +211,7 @@ public class beef_recipe extends AppCompatActivity {
                     cursor.close();
                 }
 
+                //close
                 database.close();
 
             }
