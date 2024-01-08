@@ -13,6 +13,12 @@
         android:theme="@style/Theme.TK_recipe"
         tools:targetApi="31">
         <activity
+            android:name=".fish_memo"
+            android:exported="false" />
+        <activity
+            android:name=".fish_recipe"
+            android:exported="false" />
+        <activity
             android:name=".pig_memo"
             android:exported="false" />
         <activity

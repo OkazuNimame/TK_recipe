@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".pig_memo">
+    tools:context=".fish_memo">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/pig_recipe_save_button"
+            android:id="@+id/fish_recipe_save_button"
             android:layout_width="95dp"
             android:layout_height="50dp"
             android:layout_gravity="left"
@@ -20,7 +20,7 @@
             android:textSize="20dp" />
 
         <Button
-            android:id="@+id/pig_back_button"
+            android:id="@+id/fish_back_button"
             android:layout_width="95dp"
             android:layout_height="50dp"
             android:layout_gravity="right"
@@ -28,23 +28,23 @@
             android:textSize="20dp" />
 
         <EditText
-            android:id="@+id/pig_recipe_title"
+            android:id="@+id/fish_recipe_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="55dp"
             android:hint="Title Here"
-            android:textColorHint="@color/black"
             android:textColor="@color/black"
+            android:textColorHint="@color/black"
             tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
-            android:id="@+id/pig_recipe"
+            android:id="@+id/fish_recipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="110dp"
             android:hint="Recipe Here"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
 
     </FrameLayout>
 

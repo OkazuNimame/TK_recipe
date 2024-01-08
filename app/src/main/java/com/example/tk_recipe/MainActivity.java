@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, beef_recipe.class);
                 startActivity(intent);
-                finish();
+                //finish();
             }
 
         };
@@ -39,7 +39,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, pig_recipe.class);
                 startActivity(intent);
-                finish();
+                //finish();
+            }
+        });
+
+        fish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, fish_recipe.class);
+                startActivity(intent);
+                //finish();
             }
         });
 
