@@ -4,17 +4,12 @@ import static android.graphics.Color.*;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.CharArrayBuffer;
-import android.database.ContentObserver;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,7 +33,7 @@ import static com.example.tk_recipe.database._ID;
 
 public class beef_recipe extends AppCompatActivity {
 
-    public static ListView listView;
+    public ListView listView;
     private List<String> dataList;
     private ListAdapter adapter;
     private database dbHelper;
@@ -57,7 +51,7 @@ public class beef_recipe extends AppCompatActivity {
         // データベースからデータを取得
         dbHelper = new database(getApplicationContext());
 
-        // ListView の設定
+        // ListView の設定get
         listView = findViewById(R.id.memoList);
         memoButton = findViewById(R.id.memo);
 

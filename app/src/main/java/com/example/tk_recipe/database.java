@@ -15,8 +15,6 @@ public class database extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "Beefdb";
     public static final String COLUMN_NAME_TITLE = "title";
     public static final String COLUMN_NAME_SUBTITLE = "recipe";
-    private static final int DATABASE_VERSION = 3;
-    private static final String DATABASE_NAME = "Recipe_Database.db";
     public static final String _ID = "_id";
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TABLE_NAME + " (" +
@@ -24,7 +22,6 @@ public class database extends SQLiteOpenHelper {
                     COLUMN_NAME_TITLE + " TEXT, " +
                     COLUMN_NAME_SUBTITLE + " TEXT)";
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + TABLE_NAME;
-    public static List<String> memoList;
 
     private static final int NEW_DATABASE_VERSION = 4; // バージョンを更新
     private static final String NEW_DATABASE_NAME = "New_Recipe_Database.db"; // 新しいデータベース名
@@ -34,6 +31,7 @@ public class database extends SQLiteOpenHelper {
                     _ID + " INTEGER PRIMARY KEY, " + // AUTOINCREMENTを追加
                     COLUMN_NAME_TITLE + " TEXT, " +
                     COLUMN_NAME_SUBTITLE + " TEXT)";
+
 
     private static final String SQL_MIGRATE_DATA =
             "INSERT INTO " + TABLE_NAME + " (" +
@@ -45,7 +43,6 @@ public class database extends SQLiteOpenHelper {
     database(Context context) {
         super(context, NEW_DATABASE_NAME, null, NEW_DATABASE_VERSION);
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -63,14 +60,6 @@ public class database extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public void saveData(SQLiteDatabase db, String title, String recipe) {
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME_TITLE, title);
-        values.put(COLUMN_NAME_SUBTITLE, recipe);
-
-        db.insert(TABLE_NAME, null, values);
-    }
-
     public void updateData(int id, String newData, String newData2) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -81,27 +70,5 @@ public class database extends SQLiteOpenHelper {
         db.close();
 
     }
-
-    /*public ArrayList<String> getAllMemos() {
-        memoList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_NAME, new String[]{COLUMN_NAME_TITLE}, null, null, null, null, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-
-                @SuppressLint("Range") String memoText = cursor.getString(cursor.getColumnIndex(COLUMN_NAME_TITLE));
-                memoList.add(memoText);
-            } while (cursor.moveToNext());
-        }
-
-
-        cursor.close();
-        db.close();
-
-
-        return (ArrayList<String>) memoList;
-    }*/
 }
 

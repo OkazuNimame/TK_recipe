@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".pig_memo">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/pig_recipe_save_button"
+            android:layout_width="95dp"
+            android:layout_height="50dp"
+            android:layout_gravity="left"
+            android:text="save"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/pig_back_button"
+            android:layout_width="95dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:text="back"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/pig_recipe_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="55dp"
+            android:hint="Title Here"
+            android:textColor="@color/black"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/pig_recipe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="110dp"
+            android:hint="Recipe Here"
+            android:textColor="@color/black" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

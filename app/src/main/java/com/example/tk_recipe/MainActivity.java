@@ -34,5 +34,14 @@ public class MainActivity extends AppCompatActivity {
         };
         beef.setOnClickListener(onClickListener);
 
+        pig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, pig_recipe.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 }
