@@ -3,9 +3,7 @@ package com.example.tk_recipe;
 import static com.example.tk_recipe.Pig_database.COLUMN_NAME_SUBTITLE_PIG;
 import static com.example.tk_recipe.Pig_database.COLUMN_NAME_TITLE_PIG;
 import static com.example.tk_recipe.Pig_database.TABLE_NAME_PIG;
-import static com.example.tk_recipe.database.COLUMN_NAME_SUBTITLE;
-import static com.example.tk_recipe.database.COLUMN_NAME_TITLE;
-import static com.example.tk_recipe.database.TABLE_NAME;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 

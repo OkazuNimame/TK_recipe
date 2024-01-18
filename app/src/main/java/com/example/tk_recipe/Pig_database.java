@@ -1,6 +1,5 @@
 package com.example.tk_recipe;
 
-import static com.example.tk_recipe.database.TABLE_NAME;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -17,7 +16,7 @@ public class Pig_database extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 4;
     public static final String PIG_SQL =
             "CREATE TABLE " + TABLE_NAME_PIG + "(" +
-                    _ID_PIG + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    _ID_PIG + " INTEGER PRIMARY KEY ," +
                     COLUMN_NAME_TITLE_PIG + " TEXT," +
                     COLUMN_NAME_SUBTITLE_PIG + " TEXT)";
 

@@ -17,7 +17,7 @@ public class fish_database extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 4;
     public static final String FISH_SQL =
             "CREATE TABLE " + TABLE_NAME_FISH + "(" +
-                    _ID_FISH + "INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    _ID_FISH + " INTEGER PRIMARY KEY ," +
                     COLUMN_NAME_TITLE_FISH + " TEXT," +
                     COLUMN_NAME_SUBTITLE_FISH + " TEXT)";
 
@@ -27,7 +27,7 @@ public class fish_database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
+        sqLiteDatabase.execSQL(FISH_SQL);
 
     }
 

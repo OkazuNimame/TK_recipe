@@ -6,10 +6,7 @@ import static com.example.tk_recipe.Pig_database.COLUMN_NAME_SUBTITLE_PIG;
 import static com.example.tk_recipe.Pig_database.COLUMN_NAME_TITLE_PIG;
 import static com.example.tk_recipe.Pig_database.TABLE_NAME_PIG;
 import static com.example.tk_recipe.Pig_database._ID_PIG;
-import static com.example.tk_recipe.database.COLUMN_NAME_SUBTITLE;
-import static com.example.tk_recipe.database.COLUMN_NAME_TITLE;
-import static com.example.tk_recipe.database.TABLE_NAME;
-import static com.example.tk_recipe.database._ID;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
